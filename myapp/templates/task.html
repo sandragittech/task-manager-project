@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Page</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ welcome_message }}</h1>
+        <div id="content">
+            <h2>Task List</h2>
+            <ul>
+                {% for task in tasks %}
+                    <li class="task-item">{{ task }}</li>
+                {% empty %}
+                    <li class="no-tasks">No tasks available</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addTaskBtn').addEventListener('click', function() {
+            var taskInput = document.getElementById('taskInput');
+            var newTask = taskInput.value.trim();
+
+            if (newTask !== '') {
+                var ul = document.querySelector('ul');
+                var li = document.createElement('li');
+                li.textContent = newTask;
+                li.className = 'task-item';
+                ul.appendChild(li);
+                taskInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
